@@ -1,0 +1,33 @@
+name: Release Mods
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:   # Allows manual trigger
+
+jobs:
+  release-mods:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout public repo
+        uses: actions/checkout@v4
+
+      - name: Upload all Mod.zip files as release assets
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main'
+        with:
+          tag_name: latest-mods
+          name: "Latest Mods Package"
+          draft: false
+          prerelease: false
+          files: |
+            *.zip
+            # If your mods are in a subfolder, use:
+            # mods/*.zip
+          body: |
+            All mod packages (.zip files) for CaptureLauncher.
+            
+            These are automatically updated when changes are pushed to main.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
