@@ -23,8 +23,6 @@ jobs:
           prerelease: false
           files: |
             *.zip
-            # If your mods are in a subfolder, use:
-            # mods/*.zip
           body: |
             All mod packages (.zip files) for CaptureLauncher.
             
